@@ -1,4 +1,4 @@
-import 'package:cybersage/Components/featured_rooms_box.dart';
+import 'package:cybersage/Components/Home/featured_rooms_box.dart';
 import 'package:cybersage/Components/recent_chats_box.dart';
 import 'package:cybersage/Utils/colors.dart';
 import 'package:flutter/material.dart';

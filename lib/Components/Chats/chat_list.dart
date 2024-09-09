@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import 'chatbox.dart';
+import '../Home/chatbox.dart';
 
 class ChatList extends StatelessWidget {
   const ChatList({super.key});

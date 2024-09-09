@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../Utils/colors.dart';
-import 'Chats/chatbox.dart';
+import 'Home/chatbox.dart';
 
 class RecentChatsBox extends StatelessWidget {
   final int index;
