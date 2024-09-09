@@ -1,36 +1,22 @@
 import 'package:cybersage/Utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 
-class ChatBox extends StatefulWidget {
-  const ChatBox({super.key, required this.name, required this.lastSeen});
+class RoomChatbox extends StatefulWidget {
+  const RoomChatbox({super.key, required this.name, required this.lastSeen});
 
   final String name;
   final DateTime lastSeen;
 
   @override
-  _ChatBoxState createState() => _ChatBoxState();
+  _RoomChatboxState createState() => _RoomChatboxState();
 }
 
-class _ChatBoxState extends State<ChatBox> {
+class _RoomChatboxState extends State<RoomChatbox> {
   final TextEditingController _messageController = TextEditingController();
-  final ImagePicker _picker = ImagePicker();
+
   final List<Map<String, dynamic>> _messages = []; // List to hold messages
 
   // Function to pick an image
-  Future<void> _pickImage() async {
-    final XFile? pickedFile =
-        await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        _messages.add({
-          'type': 'image',
-          'content': File(pickedFile.path),
-        });
-      });
-    }
-  }
 
   // Function to send a message
   void _sendMessage() {
@@ -111,9 +97,10 @@ class _ChatBoxState extends State<ChatBox> {
                         child: Text(
                           message['content'],
                           style: TextStyle(
-                              color: isDarkMode
-                                  ? DarkModeColors.messagetext
-                                  : LightModeColors.messagetext),
+                            color: isDarkMode
+                                ? DarkModeColors.messagetext
+                                : LightModeColors.messagetext,
+                          ),
                         ),
                       ),
                     ),
@@ -146,14 +133,15 @@ class _ChatBoxState extends State<ChatBox> {
               children: [
                 IconButton(
                   icon: const Icon(Icons.photo),
-                  onPressed: _pickImage,
+                  onPressed: () {},
                 ),
                 Expanded(
                   child: TextField(
                     style: TextStyle(
-                        color: isDarkMode
-                            ? DarkModeColors.messagetext
-                            : LightModeColors.messagetext),
+                      color: isDarkMode
+                          ? DarkModeColors.messagetext
+                          : LightModeColors.messagetext,
+                    ),
                     controller: _messageController,
                     decoration: InputDecoration(
                       hintText: 'Type a message...',

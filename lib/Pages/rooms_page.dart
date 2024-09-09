@@ -1,3 +1,4 @@
+import 'package:cybersage/Components/Rooms/room_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
@@ -49,37 +50,26 @@ class RoomsPage extends StatelessWidget {
           const SizedBox(height: 20),
           // Explore Popular Rooms
           const Text(
+            'Your Rooms',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ).animate().fadeIn(delay: 200.ms),
+          Expanded(
+            child: ListView.builder(
+              itemCount: 2, // Placeholder count for popular rooms
+              itemBuilder: (context, index) {
+                return RoomCard(index: index);
+              },
+            ),
+          ),
+          const Text(
             'Popular Rooms',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ).animate().fadeIn(delay: 200.ms),
-          const SizedBox(height: 10),
           Expanded(
             child: ListView.builder(
-              itemCount: 5, // Placeholder count for popular rooms
+              itemCount: 3, // Placeholder count for popular rooms
               itemBuilder: (context, index) {
-                return Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  elevation: 2,
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: Colors.grey[300],
-                      child: const Icon(Icons.group, color: Colors.white),
-                    ),
-                    title: Text('Room ${index + 1}'),
-                    subtitle: Text('Description of Room ${index + 1}'),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.arrow_forward),
-                      onPressed: () {
-                        // Navigate to Room details or join the room
-                      },
-                    ),
-                    onTap: () {
-                      // Handle tap to explore room
-                    },
-                  ),
-                ).animate().fadeIn(delay: (index * 100).ms).moveY(begin: 20);
+                return RoomCard(index: index);
               },
             ),
           ),
