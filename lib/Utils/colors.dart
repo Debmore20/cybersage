@@ -16,7 +16,7 @@ class DarkModeColors {
   static const Color background = Color(0xFF000000); // Pure Black
   static const Color text = Color(0xFFE0E0E0); // Light Grey
   static const Color text2 = Color(0xFFE0E0E0); // Light Grey
-  static const Color button = Color.fromARGB(255, 5, 70, 32); // Bright Green
+  static const Color button = Color.fromARGB(255, 70, 69, 5); // Bright Green
   static const Color container = Color(0xFF1E1E1E); // Dark Grey for containers
 }
 
@@ -27,6 +27,6 @@ class LightModeColors {
   static const Color background = Color.fromARGB(255, 255, 253, 246); // White
   static const Color text = Color(0xFF212121); // Dark Grey
   static const Color text2 = Color.fromARGB(255, 254, 255, 247); // Dark Grey
-  static const Color button = Color(0xFFBDB76B); // Medium Green
+  static const Color button = Color(0xFFBDB76B);
   static const Color container = Color(0xFFF5F5F5); // Light Grey for containers
 }

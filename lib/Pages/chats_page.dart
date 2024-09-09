@@ -1,4 +1,4 @@
-import 'package:cybersage/Components/chat_list.dart';
+import 'package:cybersage/Components/Chats/chat_list.dart';
 import 'package:cybersage/Utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
