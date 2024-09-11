@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(12.0),
         child: ResponsiveRowColumn(
           // rowColumn: !ResponsiveWrapper.of(context).isSmallerThan(TABLET),
           columnMainAxisAlignment: MainAxisAlignment.start,
@@ -88,21 +88,21 @@ class HomePage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(12.0),
           child: Text(
             'Recent Chats',
             style: TextStyle(
-                fontSize: 18,
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
                 color: isDarkMode ? DarkModeColors.text : LightModeColors.text),
           ).animate().fadeIn(delay: 300.ms),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 12),
         SizedBox(
           height: 120,
           child: ListView(
             scrollDirection: Axis.horizontal,
-            children: List.generate(3, (index) {
+            children: List.generate(4, (index) {
               return RecentChatsBox(index: index);
             }),
           ),

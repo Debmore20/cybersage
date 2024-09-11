@@ -24,12 +24,12 @@ class RecentChatsBox extends StatelessWidget {
                     lastSeen: DateTime.now(),
                   ))),
       child: Container(
-        width: 150,
-        margin: const EdgeInsets.only(right: 10),
+        width: 160,
+        margin: const EdgeInsets.only(right: 12),
         decoration: BoxDecoration(
           color:
               isDarkMode ? DarkModeColors.container : LightModeColors.container,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(12),
           boxShadow: const [
             BoxShadow(
               color: Colors.black12,
