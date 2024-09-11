@@ -1,6 +1,8 @@
+import 'package:cybersage/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:cybersage/Pages/profile_page.dart';
 import 'package:cybersage/Pages/rooms_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 import 'Pages/chats_page.dart';
 import 'Pages/home_page.dart';
@@ -16,26 +18,29 @@ class StudyBuddyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      builder: (context, widget) => ResponsiveWrapper.builder(
-        BouncingScrollWrapper.builder(context, widget!),
-        breakpoints: [
-          const ResponsiveBreakpoint.resize(350, name: MOBILE),
-          const ResponsiveBreakpoint.resize(600, name: TABLET),
-          const ResponsiveBreakpoint.resize(800, name: DESKTOP),
-        ],
-      ),
-      home: const MainScreen(),
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColor: LightModeColors.primary,
-        scaffoldBackgroundColor: LightModeColors.background,
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: DarkModeColors.primary,
-        scaffoldBackgroundColor: DarkModeColors.background,
+    return BlocProvider(
+      create: (context) => AuthBloc()..add(CheckStatusEvent()),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        builder: (context, widget) => ResponsiveWrapper.builder(
+          BouncingScrollWrapper.builder(context, widget!),
+          breakpoints: [
+            const ResponsiveBreakpoint.resize(350, name: MOBILE),
+            const ResponsiveBreakpoint.resize(600, name: TABLET),
+            const ResponsiveBreakpoint.resize(800, name: DESKTOP),
+          ],
+        ),
+        home: const MainScreen(),
+        theme: ThemeData(
+          brightness: Brightness.light,
+          primaryColor: LightModeColors.primary,
+          scaffoldBackgroundColor: LightModeColors.background,
+        ),
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          primaryColor: DarkModeColors.primary,
+          scaffoldBackgroundColor: DarkModeColors.background,
+        ),
       ),
     );
   }

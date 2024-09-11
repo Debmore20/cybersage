@@ -56,7 +56,8 @@ class _UnauthenticatedUserState extends State<UnauthenticatedUser> {
 
       try {
         if (mounted) {
-          if (response.statusCode == 201) {
+          if (response.statusCode == 201 || response.statusCode == 200) {
+            print(response.body);
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('Login successful!'),
               backgroundColor: Colors.green,
