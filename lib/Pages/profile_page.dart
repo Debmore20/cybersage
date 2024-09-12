@@ -23,9 +23,9 @@ class _ProfilePageState extends State<ProfilePage> {
         } else if (state is AuthUnauthenticated) {
           return const UnauthenticatedUser();
         } else if (state is AuthFailed) {
-          return Center(child: Text(AuthFailed().message));
+          return const Center(child: Text('Auth failed'));
         } else {
-          return Center(child: Text(AuthFailed().message));
+          return (const Center(child: Text('Something went wrong')));
         }
       },
     );

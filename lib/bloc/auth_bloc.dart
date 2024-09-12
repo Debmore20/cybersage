@@ -1,5 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
+
+import 'dart:io' show Platform; // Import Platform class from dart:io
+import 'package:flutter/foundation.dart' show kIsWeb; // Import kIsWeb
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -22,10 +24,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _onLogin(AuthLoginEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
+    final String baseUrl;
+    if (kIsWeb) {
+      baseUrl = 'http://localhost:5000/';
+    } else if (Platform.isAndroid) {
+      baseUrl = 'http://10.0.2.2:5000/';
+    } else if (Platform.isIOS) {
+      baseUrl = 'http://localhost:5000/';
+    } else {
+      baseUrl = 'http://localhost:5000/';
+    }
+
     try {
-      print('starting login');
       final response = await http.post(
-        Uri.parse('http://localhost:5000/api/users/login'),
+        Uri.parse('${baseUrl}api/users/login'),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
@@ -44,14 +56,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
         final User user = User(id: id, email: email);
 
-        await _secureStorage.write(key: 'token', value: token);
-        sleep(const Duration(milliseconds: 150));
+        // await _secureStorage.write(key: 'token', value: token);
+        // sleep(const Duration(milliseconds: 150));
         emit(AuthAuthenticated(user: user, token: token));
       } else {
         emit(AuthUnauthenticated());
       }
     } catch (e) {
-      emit(AuthFailed(error: e.toString()));
+      print(e);
+      emit(AuthFailed());
     }
   }
 
