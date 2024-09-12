@@ -7,11 +7,28 @@ final class AuthInitial extends AuthState {}
 
 class AuthLoading extends AuthState {}
 
+class AuthRegistered extends AuthState {
+  final String email;
+  final String password;
+
+  final String message;
+
+  AuthRegistered(
+      {required this.email,
+      required this.password,
+      this.message = "Successful Registration"});
+}
+
 class AuthAuthenticated extends AuthState {
   final User user;
   final String token;
 
-  AuthAuthenticated({required this.user, required this.token});
+  final String message;
+
+  AuthAuthenticated(
+      {required this.user,
+      required this.token,
+      this.message = "Authenticated"});
 }
 
 class AuthUnauthenticated extends AuthState {
