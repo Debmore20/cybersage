@@ -1,7 +1,12 @@
+import 'package:cybersage/Models/user_model.dart';
+import 'package:cybersage/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthenticatedUser extends StatefulWidget {
-  const AuthenticatedUser({super.key});
+  const AuthenticatedUser({super.key, required this.user, required this.token});
+  final User user;
+  final String token;
 
   @override
   State<AuthenticatedUser> createState() => _AuthenticatedUserState();
@@ -27,12 +32,13 @@ class _AuthenticatedUserState extends State<AuthenticatedUser> {
                     'assets/images/profile_picture.png'), // Placeholder image
               ),
               const SizedBox(height: 10),
-              const Text(
-                'John Doe',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              Text(
+                (widget.user.id).toString(),
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               Text(
-                'johndoe@example.com',
+                widget.user.email,
                 style: TextStyle(fontSize: 16, color: Colors.grey[600]),
               ),
             ],
@@ -90,7 +96,7 @@ class _AuthenticatedUserState extends State<AuthenticatedUser> {
                         ),
                         TextButton(
                           onPressed: () {
-                            // Perform logout
+                            context.read<AuthBloc>().add(AuthLogoutEvent());
                             Navigator.of(context).pop(); // Close the dialog
                             // Add logout logic here
                           },

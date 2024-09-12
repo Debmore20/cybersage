@@ -37,9 +37,16 @@ class AuthUnauthenticated extends AuthState {
   AuthUnauthenticated({this.message = "Unauthenticated"});
 }
 
-class AuthFailed extends AuthState {
+class AuthLogin extends AuthState {
   final String message;
-  final String error;
+  final bool error;
 
-  AuthFailed({this.message = "Auth Failed", this.error = ""});
+  AuthLogin({this.message = " Login Failed", this.error = true});
+}
+
+class AuthSignUp extends AuthState {
+  final String message;
+  final bool error;
+
+  AuthSignUp({this.message = " Sign UpFailed", this.error = true});
 }

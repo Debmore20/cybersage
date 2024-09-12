@@ -81,11 +81,15 @@ class _UnauthenticatedUserState extends State<UnauthenticatedUser> {
                           ? DarkModeColors.button
                           : LightModeColors.button,
                     )),
-                    onPressed: () => context.read<AuthBloc>().add(
-                          AuthLoginEvent(
-                              email: _emailController.text,
-                              password: _passwordController.text),
-                        ),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        context.read<AuthBloc>().add(
+                              AuthLoginEvent(
+                                  email: _emailController.text,
+                                  password: _passwordController.text),
+                            );
+                      }
+                    },
                     child: Text(
                       'Log In',
                       style: TextStyle(
@@ -106,11 +110,15 @@ class _UnauthenticatedUserState extends State<UnauthenticatedUser> {
                           ? DarkModeColors.button
                           : LightModeColors.button,
                     )),
-                    onPressed: () => context.read<AuthBloc>().add(
-                          AuthRegisterEvent(
-                              email: _emailController.text,
-                              password: _passwordController.text),
-                        ),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        context.read<AuthBloc>().add(
+                              AuthRegisterEvent(
+                                  email: _emailController.text,
+                                  password: _passwordController.text),
+                            );
+                      }
+                    },
                     child: Text(
                       'Sign Up',
                       style: TextStyle(

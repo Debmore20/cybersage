@@ -16,15 +16,8 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
 
-  AuthBloc() : super(AuthInitial()) {
-    on<AuthLoginEvent>(_onLogin);
-    on<AuthLogoutEvent>(_onLogout);
-    on<CheckStatusEvent>(_onCheckStatus);
-  }
-
-  Future<void> _onLogin(AuthLoginEvent event, Emitter<AuthState> emit) async {
-    emit(AuthLoading());
-    final String baseUrl;
+  String _getPlatform() {
+    String baseUrl;
     if (kIsWeb) {
       baseUrl = 'http://localhost:5000/';
     } else if (Platform.isAndroid) {
@@ -34,10 +27,48 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } else {
       baseUrl = 'http://localhost:5000/';
     }
+    return baseUrl;
+  }
 
+  AuthBloc() : super(AuthInitial()) {
+    on<AuthLoginEvent>(_onLogin);
+    on<AuthLogoutEvent>(_onLogout);
+    on<AuthRegisterEvent>(_onRegister);
+    on<CheckStatusEvent>(_onCheckStatus);
+  }
+
+  Future<void> _onRegister(
+      AuthRegisterEvent event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
     try {
       final response = await http.post(
-        Uri.parse('${baseUrl}api/users/login'),
+        Uri.parse('${_getPlatform()}api/users/register'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(<String, String>{
+          'email': event.email,
+          'password': event.password,
+        }),
+      );
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        emit(AuthSignUp(message: 'Success', error: false));
+      } else {
+        emit(AuthSignUp(message: ' Failed to Register'));
+      }
+    } catch (e) {
+      print(e);
+      emit(AuthSignUp(message: 'Failed to Register'));
+    }
+  }
+
+  Future<void> _onLogin(AuthLoginEvent event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+    try {
+      final response = await http.post(
+        Uri.parse('${_getPlatform()}api/users/login'),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
@@ -60,11 +91,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         // sleep(const Duration(milliseconds: 150));
         emit(AuthAuthenticated(user: user, token: token));
       } else {
-        emit(AuthUnauthenticated());
+        emit(AuthLogin(message: 'Failed to Login'));
       }
     } catch (e) {
       print(e);
-      emit(AuthFailed());
+      emit(AuthLogin());
     }
   }
 
