@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -22,6 +23,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _onLogin(AuthLoginEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     try {
+      print('starting login');
       final response = await http.post(
         Uri.parse('http://localhost:5000/api/users/login'),
         headers: <String, String>{
@@ -32,19 +34,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           'password': event.password,
         }),
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         final body = jsonDecode(response.body);
         final token = body['token'];
-        final user = User.fromJson(body['user']);
+        final data = body['user'];
+
+        final int id = data['id'];
+        final String email = data['email'];
+
+        final User user = User(id: id, email: email);
 
         await _secureStorage.write(key: 'token', value: token);
-        await _secureStorage.write(
-            key: 'user', value: jsonEncode(user.toJson()));
+        sleep(const Duration(milliseconds: 150));
         emit(AuthAuthenticated(user: user, token: token));
       } else {
         emit(AuthUnauthenticated());
       }
-    } catch (e) {}
+    } catch (e) {
+      emit(AuthFailed(error: e.toString()));
+    }
   }
 
   Future<void> _onLogout(AuthLogoutEvent event, Emitter<AuthState> emit) async {

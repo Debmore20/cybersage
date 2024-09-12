@@ -2,7 +2,6 @@ import 'package:cybersage/Components/Profile/authenticated_user.dart';
 import 'package:cybersage/Components/Profile/unauthenticateduser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../bloc/auth_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -23,8 +22,10 @@ class _ProfilePageState extends State<ProfilePage> {
           return const AuthenticatedUser();
         } else if (state is AuthUnauthenticated) {
           return const UnauthenticatedUser();
+        } else if (state is AuthFailed) {
+          return Center(child: Text(AuthFailed().message));
         } else {
-          return const UnauthenticatedUser();
+          return Center(child: Text(AuthFailed().message));
         }
       },
     );
