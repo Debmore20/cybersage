@@ -16,33 +16,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
-        if (state is AuthLogin) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-                duration: const Duration(seconds: 2),
-                behavior: SnackBarBehavior.floating,
-                content: Text(
-                  state.message,
-                  style: const TextStyle(color: Colors.white),
-                ), // Show the error message from state
-                backgroundColor: state.error ? Colors.red : Colors.green),
-          );
-        }
-        if (state is AuthSignUp) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              duration: const Duration(seconds: 2),
-              behavior: SnackBarBehavior.floating,
-              content: Text(
-                state.message,
-                style: const TextStyle(color: Colors.white),
-              ), // Show the error message from state
-              backgroundColor: DarkModeColors.button,
-            ),
-          );
-        }
-      },
+      listener: (context, state) {},
       child: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           if (state is AuthInitial) {

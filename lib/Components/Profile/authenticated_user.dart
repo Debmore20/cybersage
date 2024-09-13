@@ -33,12 +33,12 @@ class _AuthenticatedUserState extends State<AuthenticatedUser> {
               ),
               const SizedBox(height: 10),
               Text(
-                (widget.user.id).toString(),
+                ('${widget.user.firstName} ${widget.user.lastName}').toString(),
                 style:
                     const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               Text(
-                widget.user.email,
+                widget.user.userName,
                 style: TextStyle(fontSize: 16, color: Colors.grey[600]),
               ),
             ],

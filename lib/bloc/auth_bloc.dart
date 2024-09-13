@@ -47,6 +47,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           'Content-Type': 'application/json',
         },
         body: jsonEncode(<String, String>{
+          'firstName': event.firstName,
+          'lastName': event.lastName,
+          'userName': event.userName,
+          'phone': event.phone,
           'email': event.email,
           'password': event.password,
         }),
@@ -81,14 +85,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         final body = jsonDecode(response.body);
         final token = body['token'];
         final data = body['user'];
+        print(data);
 
-        final int id = data['id'];
-        final String email = data['email'];
+        final User user = User(
+          id: data['id'],
+          firstName: data['firstName'],
+          lastName: data['lastName'],
+          userName: data['userName'],
+          phone: data['phone'],
+          email: data['email'],
+          createdAt: DateTime.parse(data['createdAt']),
+        );
 
-        final User user = User(id: id, email: email);
-
-        // await _secureStorage.write(key: 'token', value: token);
-        // sleep(const Duration(milliseconds: 150));
+        emit(AuthLogin(message: 'Success', error: false));
         emit(AuthAuthenticated(user: user, token: token));
       } else {
         emit(AuthLogin(message: 'Failed to Login'));
