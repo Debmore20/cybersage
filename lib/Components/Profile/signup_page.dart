@@ -1,5 +1,7 @@
+import 'dart:io';
+
 import 'package:cybersage/Utils/colors.dart';
-import 'package:cybersage/bloc/auth_bloc.dart';
+import 'package:cybersage/authbloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,21 +41,26 @@ class _SignupPageState extends State<SignupPage> {
                     backgroundColor: state.error ? Colors.red : Colors.green),
               );
             } else {
+              sleep(const Duration(seconds: 2));
               Navigator.pop(context);
             }
           }
         },
         child: Padding(
           padding: const EdgeInsets.only(
-              right: 24.0, left: 24.0, top: 48, bottom: 0),
+              right: 24.0, left: 24.0, top: 64, bottom: 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(Icons.arrow_back_ios_outlined)),
+              InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: const Padding(
+                    padding:
+                        EdgeInsets.only(top: 8.0, bottom: 8.0, right: 24.0),
+                    child: Icon(Icons.arrow_back_ios),
+                  )),
               const SizedBox(
-                height: 48,
+                height: 24,
               ),
               Form(
                 key: _formKey,

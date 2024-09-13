@@ -1,9 +1,44 @@
+import 'package:cybersage/Components/Rooms/create_room_dialog.dart';
 import 'package:cybersage/Components/Rooms/room_card.dart';
+import 'package:cybersage/Components/Rooms/rooms_list.dart';
+import 'package:cybersage/Models/chat_model.dart';
+import 'package:cybersage/Models/user_model.dart';
+import 'package:cybersage/Services/Chats/fetch_chats.dart';
+import 'package:cybersage/authbloc/auth_bloc.dart';
+import 'package:cybersage/userchatsbloc/bloc/userchats_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RoomsPage extends StatelessWidget {
+class RoomsPage extends StatefulWidget {
   const RoomsPage({super.key});
+
+  @override
+  State<RoomsPage> createState() => _RoomsPageState();
+}
+
+class _RoomsPageState extends State<RoomsPage> {
+  List<ChatModel> chats = [];
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _afterBuild();
+    });
+  }
+
+  void _afterBuild() {
+    final state = context.read<AuthBloc>().state;
+    if (state is AuthAuthenticated) {
+      context
+          .read<UserchatsBloc>()
+          .add(FetchUserchats(state.user.id, state.token));
+    }
+    print('built');
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +53,8 @@ class RoomsPage extends StatelessWidget {
           // Create New Room Button
           ElevatedButton.icon(
             onPressed: () {
-              // Navigate to Create Room Page
+              showDialog(
+                  context: context, builder: (context) => CreateRoomDialog());
             },
             icon: const Icon(Icons.add),
             label: const Text('Create New Room'),
@@ -53,26 +89,34 @@ class RoomsPage extends StatelessWidget {
             'Your Rooms',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ).animate().fadeIn(delay: 200.ms),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 2, // Placeholder count for popular rooms
-              itemBuilder: (context, index) {
-                return RoomCard(index: index);
-              },
-            ),
+          const SizedBox(
+            height: 12,
           ),
-          const Text(
-            'Popular Rooms',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ).animate().fadeIn(delay: 200.ms),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 3, // Placeholder count for popular rooms
-              itemBuilder: (context, index) {
-                return RoomCard(index: index);
-              },
-            ),
+          Flexible(
+            flex: 5,
+            child: BlocBuilder<UserchatsBloc, UserchatsState>(
+                builder: (context, state) {
+              print(state.toString());
+              if (state is UserchatsLoading) {
+                return CircularProgressIndicator();
+              } else if (state is UserchatsLoaded) {
+                return RoomsList(chats: state.userchats);
+              }
+              return Container();
+            }),
           ),
+          const SizedBox(
+            height: 12,
+          )
+
+          // Expanded(
+          //   child: ListView.builder(
+          //     itemCount: 3, // Placeholder count for popular rooms
+          //     itemBuilder: (context, index) {
+          //       return RoomCard(index: index);
+          //     },
+          //   ),
+          // ),
         ],
       ),
     );

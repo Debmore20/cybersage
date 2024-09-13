@@ -1,4 +1,5 @@
-import 'package:cybersage/bloc/auth_bloc.dart';
+import 'package:cybersage/authbloc/auth_bloc.dart';
+import 'package:cybersage/userchatsbloc/bloc/userchats_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:cybersage/Pages/profile_page.dart';
 import 'package:cybersage/Pages/rooms_page.dart';
@@ -18,8 +19,15 @@ class StudyBuddyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthBloc()..add(CheckStatusEvent()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => AuthBloc()..add(CheckStatusEvent()),
+        ),
+        BlocProvider(
+          create: (context) => UserchatsBloc(),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         builder: (context, widget) => ResponsiveWrapper.builder(

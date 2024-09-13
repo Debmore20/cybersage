@@ -3,7 +3,7 @@ import 'package:cybersage/Components/Profile/unauthenticateduser.dart';
 import 'package:cybersage/Utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../bloc/auth_bloc.dart';
+import '../authbloc/auth_bloc.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -19,6 +19,7 @@ class _ProfilePageState extends State<ProfilePage> {
       listener: (context, state) {},
       child: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
+          print(state.toString());
           if (state is AuthInitial) {
             return const UnauthenticatedUser();
           } else if (state is AuthLoading) {

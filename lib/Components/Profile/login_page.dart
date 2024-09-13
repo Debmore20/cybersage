@@ -1,5 +1,7 @@
+import 'dart:io';
+
 import 'package:cybersage/Utils/colors.dart';
-import 'package:cybersage/bloc/auth_bloc.dart';
+import 'package:cybersage/authbloc/auth_bloc.dart';
 import 'package:cybersage/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,8 +28,15 @@ class _LoginPageState extends State<LoginPage> {
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthLogin) {
-            if (!state.error) {
-              Navigator.pop(context);
+            if (state.error) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  duration: const Duration(seconds: 2),
+                  behavior: SnackBarBehavior.floating,
+                  content: Text(
+                    state.message,
+                    style: const TextStyle(color: Colors.white),
+                  ), // Show the error message from state
+                  backgroundColor: Colors.red));
             } else {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   duration: const Duration(seconds: 2),
@@ -36,21 +45,26 @@ class _LoginPageState extends State<LoginPage> {
                     state.message,
                     style: const TextStyle(color: Colors.white),
                   ), // Show the error message from state
-                  backgroundColor: state.error ? Colors.red : Colors.green));
+                  backgroundColor: Colors.green));
+              Navigator.pop(context);
             }
           }
         },
         child: Padding(
           padding: const EdgeInsets.only(
-              right: 24.0, left: 24.0, top: 48, bottom: 0),
+              right: 24.0, left: 24.0, top: 64, bottom: 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(Icons.arrow_back_ios_outlined)),
+              InkWell(
+                  onTap: () => Navigator.pop(context),
+                  child: const Padding(
+                    padding:
+                        EdgeInsets.only(top: 8.0, bottom: 8.0, right: 24.0),
+                    child: Icon(Icons.arrow_back_ios),
+                  )),
               const SizedBox(
-                height: 48,
+                height: 24,
               ),
               Form(
                 key: _formKey,

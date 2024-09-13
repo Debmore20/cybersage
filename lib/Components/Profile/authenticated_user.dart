@@ -1,5 +1,5 @@
 import 'package:cybersage/Models/user_model.dart';
-import 'package:cybersage/bloc/auth_bloc.dart';
+import 'package:cybersage/authbloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,28 +20,35 @@ class _AuthenticatedUserState extends State<AuthenticatedUser> {
       children: [
         // User Information
         Center(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 30,
-              ),
-              CircleAvatar(
-                radius: 50,
-                backgroundColor: Colors.grey[300],
-                backgroundImage: const AssetImage(
-                    'assets/images/profile_picture.png'), // Placeholder image
-              ),
-              const SizedBox(height: 10),
-              Text(
-                ('${widget.user.firstName} ${widget.user.lastName}').toString(),
-                style:
-                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                widget.user.userName,
-                style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: 24.0,
+              bottom: 0.0,
+            ),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 30,
+                ),
+                CircleAvatar(
+                  radius: 50,
+                  backgroundColor: Colors.grey[300],
+                  backgroundImage: const AssetImage(
+                      'assets/images/profile_picture.png'), // Placeholder image
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  ('${widget.user.firstName} ${widget.user.lastName}')
+                      .toString(),
+                  style: const TextStyle(
+                      fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  widget.user.userName,
+                  style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                ),
+              ],
+            ),
           ),
         ),
         const SizedBox(height: 30),

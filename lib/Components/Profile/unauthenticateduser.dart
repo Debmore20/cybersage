@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../Utils/colors.dart';
-import '../../bloc/auth_bloc.dart';
+import '../../authbloc/auth_bloc.dart';
 
 class UnauthenticatedUser extends StatelessWidget {
   const UnauthenticatedUser({super.key});
