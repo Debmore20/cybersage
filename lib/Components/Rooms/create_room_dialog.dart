@@ -58,7 +58,6 @@ class _CreateRoomDialogState extends State<CreateRoomDialog> {
           InkWell(
             onTap: () {
               // Perform the room creation logic here
-              print('Creating room: ${roomNameController.text}');
             },
             child: const Icon(Icons.add),
           )
@@ -74,10 +73,8 @@ class _CreateRoomDialogState extends State<CreateRoomDialog> {
         ElevatedButton(
           onPressed: () {
             if (state is AuthAuthenticated) {
-              print('Creating room');
-              context
-                  .read<UserchatsBloc>()
-                  .add(UpdateUserchats(_text, state.user.id, state.token));
+              context.read<UserchatsBloc>().add(
+                  UpdateUserchats(_text, state.user.id, state.token, 'room'));
             }
 
             Navigator.of(context).pop();

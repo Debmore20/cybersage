@@ -45,49 +45,35 @@ class ChatsPage extends StatelessWidget {
       floatingActionButton: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // New Chat from Contacts
-          FloatingActionButton.extended(
-            onPressed: () {
-              // Action for new chat from contacts
-            },
-            label: Text(
-              'Contacts',
-              style: TextStyle(
-                  color:
-                      isDarkMode ? DarkModeColors.text : LightModeColors.text),
-            ),
-            icon: Icon(
-              Icons.contact_page,
-              color:
-                  isDarkMode ? DarkModeColors.accent : LightModeColors.accent,
-            ),
-            backgroundColor: isDarkMode
-                ? DarkModeColors.button
-                : LightModeColors.button, // Beige color
-            heroTag: 'new-chat-from-contacts',
-          ).animate().fadeIn(delay: 200.ms).moveY(begin: 20),
-          const SizedBox(height: 10),
           // New Chat Button
-          FloatingActionButton.extended(
-            onPressed: () {
-              // Action for starting a new chat
-            },
-            label: Text(
-              'New Chat',
-              style: TextStyle(
-                  color:
-                      isDarkMode ? DarkModeColors.text : LightModeColors.text),
-            ),
-            icon: Icon(
-              Icons.chat,
-              color:
-                  isDarkMode ? DarkModeColors.accent : LightModeColors.accent,
-            ),
-            backgroundColor: isDarkMode
-                ? DarkModeColors.button
-                : LightModeColors.button, // Beige color
-            heroTag: 'new-chat',
-          ).animate().fadeIn(delay: 400.ms).moveY(begin: 20),
+          Padding(
+            padding: const EdgeInsets.only(right: 48),
+            child: FloatingActionButton.extended(
+              onPressed: () {
+                // Action for starting a new chat
+              },
+              label: Text(
+                'New Chat',
+                style: TextStyle(
+                    color: isDarkMode
+                        ? DarkModeColors.text
+                        : LightModeColors.text),
+              ),
+              icon: Icon(
+                Icons.chat,
+                color:
+                    isDarkMode ? DarkModeColors.accent : LightModeColors.accent,
+              ),
+              backgroundColor: isDarkMode
+                  ? DarkModeColors.button
+                  : LightModeColors.button, // Beige color
+              heroTag: 'new-chat',
+            ).animate().fadeIn(delay: 400.ms).moveY(begin: 20),
+          ),
+
+          const SizedBox(
+            height: 48,
+          )
         ],
       ),
     );

@@ -23,8 +23,8 @@ String _getPlatform() {
 Future<void> updateChats(
     {required String roomName,
     required int userId,
-    required String token}) async {
-  print('updateChats');
+    required String token,
+    required String chatType}) async {
   final response = await http.post(
     Uri.parse('${_getPlatform()}api/chats'),
     headers: <String, String>{
@@ -34,10 +34,10 @@ Future<void> updateChats(
     body: jsonEncode(<String, String>{
       'roomName': roomName.toString(),
       'userId': userId.toString(),
+      'chatType': chatType.toString(),
     }),
   );
   if (response.statusCode == 200 || response.statusCode == 201) {
-    print(response.body);
   } else {
     throw Exception('Failed to add chat');
   }

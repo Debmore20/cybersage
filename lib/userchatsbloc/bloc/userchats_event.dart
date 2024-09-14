@@ -14,6 +14,7 @@ class UpdateUserchats extends UserchatsEvent {
   final String roomName;
   final int userId;
   final String token;
+  final String chatType;
 
-  UpdateUserchats(this.roomName, this.userId, this.token);
+  UpdateUserchats(this.roomName, this.userId, this.token, this.chatType);
 }

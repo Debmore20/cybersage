@@ -36,7 +36,6 @@ class _RoomsPageState extends State<RoomsPage> {
           .read<UserchatsBloc>()
           .add(FetchUserchats(state.user.id, state.token));
     }
-    print('built');
     setState(() {});
   }
 
@@ -96,7 +95,6 @@ class _RoomsPageState extends State<RoomsPage> {
             flex: 5,
             child: BlocBuilder<UserchatsBloc, UserchatsState>(
                 builder: (context, state) {
-              print(state.toString());
               if (state is UserchatsLoading) {
                 return CircularProgressIndicator();
               } else if (state is UserchatsLoaded) {

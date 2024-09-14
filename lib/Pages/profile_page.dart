@@ -19,7 +19,6 @@ class _ProfilePageState extends State<ProfilePage> {
       listener: (context, state) {},
       child: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
-          print(state.toString());
           if (state is AuthInitial) {
             return const UnauthenticatedUser();
           } else if (state is AuthLoading) {

@@ -13,16 +13,17 @@ class UserchatsBloc extends Bloc<UserchatsEvent, UserchatsState> {
         FetchUserchats event, Emitter<UserchatsState> emit) async {
       // print('onFetchUserchats');
       final chats = await fetchChats(userId: event.userId, token: event.token);
-      print(chats.map((c) => c.toJson()).toList());
 
       emit(UserchatsLoaded(userchats: chats));
     }
 
     Future<dynamic> onUpdateChats(
         UpdateUserchats event, Emitter<UserchatsState> emit) async {
-      print('onUpdatechats');
       final upchats = await updateChats(
-          roomName: event.roomName, userId: event.userId, token: event.token);
+          roomName: event.roomName,
+          userId: event.userId,
+          token: event.token,
+          chatType: event.chatType);
 
       final chats = await fetchChats(userId: event.userId, token: event.token);
 

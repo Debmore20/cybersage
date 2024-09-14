@@ -19,7 +19,6 @@ String _getPlatform() {
 }
 
 Future<dynamic> createRoom(String roomName, int userId) async {
-  print(_getPlatform() + 'api/chats');
   final response = await http.post(
     Uri.parse('${_getPlatform()}api/chats'),
     headers: <String, String>{

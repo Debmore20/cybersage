@@ -31,7 +31,6 @@ Future<List<ChatModel>> fetchChats(
   );
   if (response.statusCode == 200) {
     List<dynamic> jsonList = json.decode(response.body);
-    print('fetchChats');
     List<ChatModel> chats =
         jsonList.map((json) => ChatModel.fromJson(json)).toList();
     return chats;

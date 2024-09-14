@@ -55,15 +55,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           'password': event.password,
         }),
       );
-      print(response.statusCode);
-      print(response.body);
       if (response.statusCode == 200 || response.statusCode == 201) {
         emit(AuthSignUp(message: 'Success', error: false));
       } else {
         emit(AuthSignUp(message: ' Failed to Register'));
       }
     } catch (e) {
-      print(e);
       emit(AuthSignUp(message: 'Failed to Register'));
     }
   }
@@ -85,7 +82,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         final body = jsonDecode(response.body);
         final token = body['token'];
         final data = body['user'];
-        print(data);
 
         final User user = User(
           id: data['id'],
@@ -103,7 +99,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthLogin(message: 'Failed to Login'));
       }
     } catch (e) {
-      print(e);
       emit(AuthLogin());
     }
   }
