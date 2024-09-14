@@ -1,12 +1,13 @@
-import 'package:cybersage/authbloc/auth_bloc.dart';
-import 'package:cybersage/userchatsbloc/bloc/userchats_bloc.dart';
+import 'package:cybersage/BLoC/bloc_auth/auth_bloc.dart';
+import 'package:cybersage/BLoC/bloc_user_chats/bloc_user_chats/userchats_bloc.dart';
+import 'package:cybersage/BLoC/cubit_device_info/device_info_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:cybersage/Pages/profile_page.dart';
-import 'package:cybersage/Pages/rooms_page.dart';
+import 'package:cybersage/Views/profile_page.dart';
+import 'package:cybersage/Views/rooms_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'Pages/chats_page.dart';
-import 'Pages/home_page.dart';
+import 'Views/chats_page.dart';
+import 'Views/home_page.dart';
 import 'Utils/colors.dart';
 
 void main() {
@@ -26,6 +27,9 @@ class StudyBuddyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => UserchatsBloc(),
+        ),
+        BlocProvider(
+          create: (context) => DeviceInfoCubit(),
         ),
       ],
       child: MaterialApp(
@@ -80,6 +84,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    context.read<DeviceInfoCubit>().fetchDeviceInfo();
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       body: Container(

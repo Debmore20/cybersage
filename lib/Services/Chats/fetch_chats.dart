@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:cybersage/Models/chat_model.dart';
-import 'package:cybersage/Models/user_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
