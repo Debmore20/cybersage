@@ -6,9 +6,7 @@ sealed class AuthEvent {}
 class AuthLoginEvent extends AuthEvent {
   final String email;
   final String password;
-  final Map<String, dynamic> deviceInfo;
-  AuthLoginEvent(
-      {required this.deviceInfo, required this.email, required this.password});
+  AuthLoginEvent({required this.email, required this.password});
 }
 
 class AuthRegisterEvent extends AuthEvent {

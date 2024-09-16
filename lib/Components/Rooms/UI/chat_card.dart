@@ -2,8 +2,8 @@ import 'package:cybersage/Components/Rooms/Pages/room_chatbox.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-class RoomCard extends StatelessWidget {
-  const RoomCard(
+class ChatsCard extends StatelessWidget {
+  const ChatsCard(
       {super.key,
       required this.index,
       required this.id,
@@ -15,11 +15,7 @@ class RoomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      elevation: 2,
+    return SizedBox(
       child: ListTile(
         leading: CircleAvatar(
           backgroundColor: Colors.grey[300],

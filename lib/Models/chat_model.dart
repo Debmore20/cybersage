@@ -1,11 +1,13 @@
 class ChatModel {
   final int id;
+  final int createdBy;
   final String chatName;
 
   final String chatType;
 
   ChatModel({
     required this.id,
+    required this.createdBy,
     required this.chatName,
     required this.chatType,
   });
@@ -13,16 +15,18 @@ class ChatModel {
   factory ChatModel.fromJson(Map<String, dynamic> json) {
     return ChatModel(
       id: json['id'],
-      chatName: json['chatname'],
-      chatType: json['chattype'],
+      createdBy: json['created_by'],
+      chatName: json['chat_name'],
+      chatType: json['chat_type'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'chatname': chatName,
-      'chattype': chatType,
+      'created_by': createdBy,
+      'chat_name': chatName,
+      'chat_type': chatType,
     };
   }
 }

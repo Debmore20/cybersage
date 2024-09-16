@@ -1,5 +1,5 @@
 import 'package:cybersage/BLoC/bloc_exports.dart';
-import 'package:cybersage/Components/Profile/profile_components_exports.dart';
+import 'package:cybersage/Components/components_exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

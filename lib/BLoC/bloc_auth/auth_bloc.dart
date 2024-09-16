@@ -1,18 +1,21 @@
 import 'dart:convert';
 
+import 'package:cybersage/Services/services_exports.dart';
+import 'package:flutter/foundation.dart';
+
 import 'package:bloc/bloc.dart';
+import 'package:cybersage/Models/models_exports.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
-
-import '../../Models/user_model.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
+
+  final deviceInfo = getDeviceInfo();
 
   AuthBloc() : super(AuthInitial()) {
     on<AuthLoginEvent>(_onLogin);
@@ -23,11 +26,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _onRegister(
       AuthRegisterEvent event, Emitter<AuthState> emit) async {
-    final deviceInfo = event.deviceInfo;
     emit(AuthLoading());
     try {
       final response = await http.post(
-        Uri.parse('${deviceInfo['url']}api/users/register'),
+        Uri.parse('${getDeviceInfo()['url']}/api/users/register'),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
@@ -54,7 +56,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
     try {
       final response = await http.post(
-        Uri.parse('${event.deviceInfo['url']}api/users/login'),
+        Uri.parse('${getDeviceInfo()['url']}/api/users/login'),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },

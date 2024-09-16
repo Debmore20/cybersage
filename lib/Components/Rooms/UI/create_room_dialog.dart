@@ -1,5 +1,5 @@
 import 'package:cybersage/BLoC/bloc_auth/auth_bloc.dart';
-import 'package:cybersage/BLoC/bloc_user_chats/bloc_user_chats/userchats_bloc.dart';
+import 'package:cybersage/BLoC/bloc_user_chats/userchats_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -37,18 +37,31 @@ class _CreateRoomDialogState extends State<CreateRoomDialog> {
   @override
   Widget build(BuildContext context) {
     final state = context.read<AuthBloc>().state;
+    bool isPrivate = true;
+    String chatType = 'Private';
 
     return AlertDialog(
-      title: const Text('Create Room'),
+      title: Text('Create Chat'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          SwitchListTile(
+              value: isPrivate,
+              onChanged: (value) {
+                setState(() {
+                  isPrivate = value;
+                  print(isPrivate);
+                  chatType = isPrivate ? 'Private' : 'Room';
+                  print(chatType);
+                });
+              },
+              title: Text('$chatType Chat')),
           TextField(
             controller: roomNameController,
-            decoration: const InputDecoration(labelText: 'Room Name'),
+            decoration: const InputDecoration(labelText: 'Chat Name'),
           ),
           const SizedBox(height: 16.0),
-          Text('Room Name: $_text'),
+          Text('Chat Name: $_text'),
           const SizedBox(height: 16.0),
           InkWell(
             onTap: () {
@@ -69,7 +82,7 @@ class _CreateRoomDialogState extends State<CreateRoomDialog> {
           onPressed: () {
             if (state is AuthAuthenticated) {
               context.read<UserchatsBloc>().add(
-                  UpdateUserchats(_text, state.user.id, state.token, 'room'));
+                  CreateUserchats(_text, state.user.id, state.token, 'room'));
             }
 
             Navigator.of(context).pop();

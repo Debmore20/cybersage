@@ -1,16 +1,18 @@
-import 'package:cybersage/Components/Rooms/UI/room_card.dart';
+import 'package:cybersage/Components/Rooms/UI/chat_card.dart';
 import 'package:cybersage/Models/chat_model.dart';
 import 'package:flutter/material.dart';
 
-class RoomsList extends StatefulWidget {
+class ChatsList extends StatefulWidget {
   final List<ChatModel> chats;
-  const RoomsList({super.key, required this.chats});
+  final String scrollDirection;
+  const ChatsList(
+      {super.key, required this.chats, required this.scrollDirection});
 
   @override
-  State<RoomsList> createState() => _RoomsListState();
+  State<ChatsList> createState() => _ChatsListState();
 }
 
-class _RoomsListState extends State<RoomsList> {
+class _ChatsListState extends State<ChatsList> {
   @override
   void initState() {
     super.initState();
@@ -22,16 +24,20 @@ class _RoomsListState extends State<RoomsList> {
   final ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
-    return (ListView.builder(
+    return ListView.builder(
+      shrinkWrap: true,
       controller: _scrollController,
+      scrollDirection: widget.scrollDirection == 'vertical'
+          ? Axis.vertical
+          : Axis.horizontal,
       reverse: true,
       itemCount: widget.chats.length, // Placeholder count for popular rooms
       itemBuilder: (context, index) {
-        return RoomCard(
+        return ChatsCard(
             index: index,
             id: widget.chats[index].id,
             chatName: widget.chats[index].chatName);
       },
-    ));
+    );
   }
 }

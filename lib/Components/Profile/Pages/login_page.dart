@@ -27,21 +27,21 @@ class _LoginPageState extends State<LoginPage> {
             if (state.error) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   duration: const Duration(seconds: 2),
-                  behavior: SnackBarBehavior.floating,
                   content: Text(
                     state.message,
                     style: const TextStyle(color: Colors.white),
                   ), // Show the error message from state
-                  backgroundColor: Colors.red));
+                  backgroundColor: const Color.fromARGB(255, 124, 28, 21)));
             } else {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   duration: const Duration(seconds: 2),
-                  behavior: SnackBarBehavior.floating,
                   content: Text(
                     state.message,
                     style: const TextStyle(color: Colors.white),
                   ), // Show the error message from state
-                  backgroundColor: Colors.green));
+                  backgroundColor: isDarkMode
+                      ? DarkModeColors.button
+                      : LightModeColors.button));
               Navigator.pop(context);
             }
           }

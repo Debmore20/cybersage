@@ -12,6 +12,12 @@ final class UserchatsLoaded extends UserchatsState {
   UserchatsLoaded({required this.userchats});
 }
 
+final class UserchatsCreated extends UserchatsState {
+  final String message;
+  final List<ChatModel> userchats;
+  UserchatsCreated({required this.userchats, required this.message});
+}
+
 final class UserchatsError extends UserchatsState {
   final String message;
   UserchatsError({required this.message});

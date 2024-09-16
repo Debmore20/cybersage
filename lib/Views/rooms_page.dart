@@ -1,6 +1,6 @@
 import 'package:cybersage/BLoC/bloc_exports.dart';
-import 'package:cybersage/Components/Rooms/rooms_components_exports.dart';
-import 'package:cybersage/Models/chat_model.dart';
+import 'package:cybersage/Components/components_exports.dart';
+import 'package:cybersage/Models/models_exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,15 +28,16 @@ class _RoomsPageState extends State<RoomsPage> {
     if (state is AuthAuthenticated) {
       context
           .read<UserchatsBloc>()
-          .add(FetchUserchats(state.user.id, state.token));
+          .add(FetchUserchats(state.user.id, state.token, 'room'));
     }
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(12.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -44,10 +45,10 @@ class _RoomsPageState extends State<RoomsPage> {
             height: 30,
           ),
           // Create New Room Button
-          const RoomCreateNewBtn(),
+          roomCreateNewBtn(context).animate().fadeIn(delay: 100.ms),
           const SizedBox(height: 20),
           // Join Room by ID
-          const RoomJoinBar(),
+          roomJoinBar(context).animate().fadeIn(delay: 200.ms),
           const SizedBox(height: 20),
           // Explore Popular Rooms
           const Text(
@@ -59,15 +60,10 @@ class _RoomsPageState extends State<RoomsPage> {
           ),
           Flexible(
             flex: 5,
-            child: BlocBuilder<UserchatsBloc, UserchatsState>(
-                builder: (context, state) {
-              if (state is UserchatsLoading) {
-                return const CircularProgressIndicator();
-              } else if (state is UserchatsLoaded) {
-                return RoomsList(chats: state.userchats);
-              }
-              return Container();
-            }),
+            child: ChatsListContainer(
+              isDarkMode: isDarkMode,
+              verticalScrollDirection: 'vertical',
+            ),
           ),
           const SizedBox(
             height: 12,

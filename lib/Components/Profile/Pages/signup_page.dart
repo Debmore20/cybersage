@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:cybersage/Components/components_exports.dart';
 import 'package:cybersage/Utils/colors.dart';
 import 'package:cybersage/BLoC/bloc_auth/auth_bloc.dart';
 import 'package:flutter/material.dart';
@@ -38,10 +37,19 @@ class _SignupPageState extends State<SignupPage> {
                       state.message,
                       style: const TextStyle(color: Colors.white),
                     ), // Show the error message from state
-                    backgroundColor: state.error ? Colors.red : Colors.green),
+                    backgroundColor: Colors.red),
               );
             } else {
-              sleep(const Duration(seconds: 2));
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    duration: const Duration(seconds: 2),
+                    behavior: SnackBarBehavior.floating,
+                    content: Text(
+                      state.message,
+                      style: const TextStyle(color: Colors.white),
+                    ), // Show the error message from state
+                    backgroundColor: Colors.green),
+              );
               Navigator.pop(context);
             }
           }
@@ -200,6 +208,14 @@ class _SignupPageState extends State<SignupPage> {
                       },
                     ),
                     const SizedBox(height: 24),
+                    SignupBtn(
+                        formKey: _formKey,
+                        firstNameController: _firstNameController,
+                        lastNameController: _lastNameController,
+                        usernameController: _usernameController,
+                        phoneController: _phoneController,
+                        emailController: _emailController,
+                        passwordController: _passwordController)
                   ],
                 ),
               ),

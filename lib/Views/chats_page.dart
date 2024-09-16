@@ -1,7 +1,6 @@
+import 'package:cybersage/Components/components_exports.dart';
 import 'package:cybersage/Utils/colors.dart';
 import 'package:flutter/material.dart';
-
-import '../Components/Chats/chats_components_exports.dart';
 
 class ChatsPage extends StatelessWidget {
   const ChatsPage({super.key});

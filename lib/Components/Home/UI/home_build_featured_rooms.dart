@@ -1,4 +1,3 @@
-import 'package:cybersage/Components/Home/UI/home_featured_rooms_box.dart';
 import 'package:cybersage/Utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -19,15 +18,10 @@ Widget buildFeaturedRooms(BuildContext context) {
         ).animate().fadeIn(delay: 300.ms),
       ),
       const SizedBox(height: 10),
-      SizedBox(
-        height: 96,
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          children: List.generate(5, (index) {
-            return FeaturedRoomsBox(index: index);
-          }),
-        ),
-      ),
+      // ChatsListContainer(
+      //         isDarkMode: isDarkMode, verticalScrollDirection: 'TRUE')
+      //     .animate()
+      //     .fadeIn(delay: 400.ms),
     ],
   );
 }
