@@ -35,21 +35,28 @@ class _ChatsListContainerState extends State<ChatsListContainer> {
           );
         }
       },
-      child:
-          BlocBuilder<UserchatsBloc, UserchatsState>(builder: (context, state) {
-        if (state is UserchatsLoading) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is UserchatsLoaded) {
-          return ChatsList(
-              chats: state.userchats,
-              scrollDirection: widget.verticalScrollDirection);
-        } else if (state is UserchatsCreated) {
-          return ChatsList(
-              chats: state.userchats,
-              scrollDirection: widget.verticalScrollDirection);
-        }
-        return Container();
-      }),
+      child: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          if (state is AuthAuthenticated) {
+            return BlocBuilder<UserchatsBloc, UserchatsState>(
+                builder: (context, state) {
+              if (state is UserchatsLoading) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is UserchatsLoaded) {
+                return ChatsList(
+                    chats: state.userchats,
+                    scrollDirection: widget.verticalScrollDirection);
+              } else if (state is UserchatsCreated) {
+                return ChatsList(
+                    chats: state.userchats,
+                    scrollDirection: widget.verticalScrollDirection);
+              }
+              return Container();
+            });
+          }
+          return Container();
+        },
+      ),
     );
   }
 }

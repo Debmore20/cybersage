@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomeView extends StatefulWidget {
+  const HomeView({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
@@ -27,8 +27,8 @@ class _HomePageState extends State<HomePage> {
       context
           .read<UserchatsBloc>()
           .add(FetchUserchats(state.user.id, state.token, 'all'));
+      setState(() {});
     }
-    setState(() {});
   }
 
   @override

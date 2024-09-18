@@ -1,3 +1,4 @@
+import 'package:cybersage/Components/components_exports.dart';
 import 'package:cybersage/Utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -16,8 +17,11 @@ class ChatsActionBtns extends StatelessWidget {
           padding: const EdgeInsets.only(right: 48),
           child: FloatingActionButton.extended(
             onPressed: () {
-              // Action for starting a new chat
+              showDialog(
+                  context: context,
+                  builder: (context) => const CreateRoomDialog());
             },
+
             label: Text(
               'New Chat',
               style: TextStyle(

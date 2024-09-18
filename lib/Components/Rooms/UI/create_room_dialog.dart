@@ -13,19 +13,8 @@ class CreateRoomDialog extends StatefulWidget {
 class _CreateRoomDialogState extends State<CreateRoomDialog> {
   final TextEditingController roomNameController = TextEditingController();
 
-  String _text = '';
-
-  @override
-  void initState() {
-    super.initState();
-    // Add a listener to the controller
-    roomNameController.addListener(() {
-      // Update the state when the text changes
-      setState(() {
-        _text = roomNameController.text;
-      });
-    });
-  }
+  bool isPrivate = false;
+  String chatType = 'Private';
 
   @override
   void dispose() {
@@ -37,11 +26,9 @@ class _CreateRoomDialogState extends State<CreateRoomDialog> {
   @override
   Widget build(BuildContext context) {
     final state = context.read<AuthBloc>().state;
-    bool isPrivate = true;
-    String chatType = 'Private';
 
     return AlertDialog(
-      title: Text('Create Chat'),
+      title: Text('Create ${isPrivate ? 'Room' : 'Private'} Chat'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -50,9 +37,8 @@ class _CreateRoomDialogState extends State<CreateRoomDialog> {
               onChanged: (value) {
                 setState(() {
                   isPrivate = value;
-                  print(isPrivate);
-                  chatType = isPrivate ? 'Private' : 'Room';
-                  print(chatType);
+
+                  chatType = isPrivate ? 'Room' : 'Private';
                 });
               },
               title: Text('$chatType Chat')),
@@ -61,14 +47,15 @@ class _CreateRoomDialogState extends State<CreateRoomDialog> {
             decoration: const InputDecoration(labelText: 'Chat Name'),
           ),
           const SizedBox(height: 16.0),
-          Text('Chat Name: $_text'),
           const SizedBox(height: 16.0),
-          InkWell(
-            onTap: () {
-              // Perform the room creation logic here
-            },
-            child: const Icon(Icons.add),
-          )
+          isPrivate
+              ? IconButton.outlined(
+                  onPressed: () {}, icon: const Icon(Icons.add))
+              : Container(
+                  color: Colors.white24,
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: 48,
+                ),
         ],
       ),
       actions: [
@@ -80,10 +67,27 @@ class _CreateRoomDialogState extends State<CreateRoomDialog> {
         ),
         ElevatedButton(
           onPressed: () {
-            if (state is AuthAuthenticated) {
-              context.read<UserchatsBloc>().add(
-                  CreateUserchats(_text, state.user.id, state.token, 'room'));
-            }
+            isPrivate
+                ? {
+                    if (state is AuthAuthenticated)
+                      {
+                        context.read<UserchatsBloc>().add(CreateUserchats(
+                            roomNameController.text,
+                            state.user.id,
+                            state.token,
+                            'room'))
+                      }
+                  }
+                : {
+                    if (state is AuthAuthenticated)
+                      {
+                        context.read<UserchatsBloc>().add(CreateUserchats(
+                            roomNameController.text,
+                            state.user.id,
+                            state.token,
+                            'private'))
+                      }
+                  };
 
             Navigator.of(context).pop();
           },

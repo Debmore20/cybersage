@@ -21,8 +21,6 @@ Future<List<ChatModel>> fetchChats(
       List<dynamic> jsonList = json.decode(response.body);
       List<ChatModel> chats =
           jsonList.map((json) => ChatModel.fromJson(json)).toList();
-
-      chats.removeWhere((chat) => chat.chatType != 'room');
       return chats;
     } else if (chatType == 'room') {
       List<dynamic> jsonList = json.decode(response.body);
@@ -31,14 +29,14 @@ Future<List<ChatModel>> fetchChats(
 
       chats.removeWhere((chat) => chat.chatType != 'room');
       return chats;
-    }
-  } else if (chatType == 'private') {
-    List<dynamic> jsonList = json.decode(response.body);
-    List<ChatModel> chats =
-        jsonList.map((json) => ChatModel.fromJson(json)).toList();
+    } else if (chatType == 'private') {
+      List<dynamic> jsonList = json.decode(response.body);
+      List<ChatModel> chats =
+          jsonList.map((json) => ChatModel.fromJson(json)).toList();
 
-    chats.removeWhere((chat) => chat.chatType != 'private');
-    return chats;
+      chats.removeWhere((chat) => chat.chatType != 'private');
+      return chats;
+    }
   }
   return [];
 }

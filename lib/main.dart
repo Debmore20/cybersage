@@ -66,10 +66,10 @@ class _MainScreenState extends State<MainScreen> {
 
   // List of pages
   final List<Widget> _pages = [
-    const HomePage(),
-    const ChatsPage(),
-    const RoomsPage(),
-    const ProfilePage(),
+    const HomeView(),
+    const ChatsView(),
+    const RoomsView(),
+    const ProfileView(),
   ];
 
   void _onItemTapped(int index) {
@@ -104,7 +104,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.groups_2_sharp),
-            label: 'Chats',
+            label: 'Rooms',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

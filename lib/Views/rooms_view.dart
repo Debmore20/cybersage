@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RoomsPage extends StatefulWidget {
-  const RoomsPage({super.key});
+class RoomsView extends StatefulWidget {
+  const RoomsView({super.key});
 
   @override
-  State<RoomsPage> createState() => _RoomsPageState();
+  State<RoomsView> createState() => _RoomsViewState();
 }
 
-class _RoomsPageState extends State<RoomsPage> {
+class _RoomsViewState extends State<RoomsView> {
   List<ChatModel> chats = [];
 
   @override
@@ -29,8 +29,8 @@ class _RoomsPageState extends State<RoomsPage> {
       context
           .read<UserchatsBloc>()
           .add(FetchUserchats(state.user.id, state.token, 'room'));
+      setState(() {});
     }
-    setState(() {});
   }
 
   @override

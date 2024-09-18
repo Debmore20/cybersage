@@ -1,4 +1,4 @@
-export 'chats_page.dart';
-export 'home_page.dart';
-export 'profile_page.dart';
-export 'rooms_page.dart';
+export 'chats_view.dart';
+export 'home_view.dart';
+export 'profile_view.dart';
+export 'rooms_view.dart';

@@ -92,7 +92,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _onLogout(AuthLogoutEvent event, Emitter<AuthState> emit) async {
     await _secureStorage.delete(key: 'token');
-    emit(AuthUnauthenticated());
+    emit(AuthInitial());
   }
 
   Future<void> _onCheckStatus(
