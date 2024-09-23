@@ -1,8 +1,8 @@
-import 'package:cybersage/Views/views_exports.dart';
+import 'package:cybersage/presentation/Views/views_exports.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-import 'package:cybersage/BLoC/bloc_exports.dart';
+import 'package:cybersage/data/BLoC/bloc_exports.dart';
 
 import 'Utils/colors.dart';
 

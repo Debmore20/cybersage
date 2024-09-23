@@ -1,6 +1,6 @@
 // ignore_for_file: overridden_fields
 
-import 'package:cybersage/BLoC/bloc_exports.dart';
+import 'package:cybersage/data/BLoC/bloc_exports.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<void> onUpdateChats(
