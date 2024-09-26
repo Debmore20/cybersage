@@ -2,7 +2,7 @@ import 'package:cybersage/presentation/Components/Rooms/Pages/room_chatbox.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import '../../../../Utils/colors.dart';
+import '../../../../utils/colors.dart';
 
 class FeaturedRoomsBox extends StatelessWidget {
   final int index;

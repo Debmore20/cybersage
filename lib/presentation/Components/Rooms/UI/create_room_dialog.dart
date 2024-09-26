@@ -71,21 +71,21 @@ class _CreateRoomDialogState extends State<CreateRoomDialog> {
                 ? {
                     if (state is AuthAuthenticated)
                       {
-                        context.read<UserchatsBloc>().add(CreateUserchats(
-                            roomNameController.text,
-                            state.user.id,
-                            state.token,
-                            'room'))
+                        context.read<UserchatsBloc>().add(CreatePrivateUserChat(
+                              roomNameController.text,
+                              state.user.id,
+                              state.token,
+                            ))
                       }
                   }
                 : {
                     if (state is AuthAuthenticated)
                       {
-                        context.read<UserchatsBloc>().add(CreateUserchats(
-                            roomNameController.text,
-                            state.user.id,
-                            state.token,
-                            'private'))
+                        context.read<UserchatsBloc>().add(CreatePublicUserChat(
+                              roomNameController.text,
+                              state.user.id,
+                              state.token,
+                            ))
                       }
                   };
 

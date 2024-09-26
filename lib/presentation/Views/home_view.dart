@@ -1,6 +1,6 @@
 import 'package:cybersage/data/BLoC/bloc_exports.dart';
 import 'package:cybersage/presentation/Components/components_exports.dart';
-import 'package:cybersage/Utils/colors.dart';
+import 'package:cybersage/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +26,7 @@ class _HomeViewState extends State<HomeView> {
     if (state is AuthAuthenticated) {
       context
           .read<UserchatsBloc>()
-          .add(FetchUserchats(state.user.id, state.token, 'all'));
+          .add(FetchAllUserChats(state.user.id, state.token));
       setState(() {});
     }
   }
@@ -89,9 +89,8 @@ class _HomeViewState extends State<HomeView> {
 
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.4,
-              child: ChatsListContainer(
-                isDarkMode: isDarkMode,
-                verticalScrollDirection: 'vertical',
+              child: const ChatsListContainer(
+                isPrivateChat: false,
               ),
             ),
 

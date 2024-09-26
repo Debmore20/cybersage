@@ -1,19 +1,18 @@
 import 'package:cybersage/data/BLoC/bloc_exports.dart';
 import 'package:cybersage/presentation/Components/components_exports.dart';
-import 'package:cybersage/Utils/colors.dart';
+import 'package:cybersage/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChatsListContainer extends StatefulWidget {
   const ChatsListContainer({
     super.key,
-    required this.isDarkMode,
-    required this.verticalScrollDirection,
+    this.verticalScrollDirection = 'vertical',
+    this.isPrivateChat = false,
   });
 
   final String verticalScrollDirection;
-
-  final bool isDarkMode;
+  final bool isPrivateChat;
 
   @override
   State<ChatsListContainer> createState() => _ChatsListContainerState();
@@ -22,14 +21,14 @@ class ChatsListContainer extends StatefulWidget {
 class _ChatsListContainerState extends State<ChatsListContainer> {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UserchatsBloc, UserchatsState>(
+    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    return BlocListener<UserchatsBloc, UserChatsState>(
       listener: (context, state) {
-        if (state is UserchatsCreated) {
+        if (state is PrivateUserChatCreated) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              backgroundColor: widget.isDarkMode
-                  ? DarkModeColors.button
-                  : LightModeColors.button,
+              backgroundColor:
+                  isDarkMode ? DarkModeColors.button : LightModeColors.button,
               content: Text(state.message),
             ),
           );
@@ -38,17 +37,25 @@ class _ChatsListContainerState extends State<ChatsListContainer> {
       child: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           if (state is AuthAuthenticated) {
-            return BlocBuilder<UserchatsBloc, UserchatsState>(
+            return BlocBuilder<UserchatsBloc, UserChatsState>(
                 builder: (context, state) {
-              if (state is UserchatsLoading) {
+              if (state is UserChatsLoading) {
                 return const Center(child: CircularProgressIndicator());
-              } else if (state is UserchatsLoaded) {
+              } else if (state is PrivateUserChatsLoaded) {
                 return ChatsList(
-                    chats: state.userchats,
+                    chats: state.userChats,
                     scrollDirection: widget.verticalScrollDirection);
-              } else if (state is UserchatsCreated) {
+              } else if (state is PrivateUserChatCreated) {
                 return ChatsList(
-                    chats: state.userchats,
+                    chats: state.userChats,
+                    scrollDirection: widget.verticalScrollDirection);
+              } else if (state is PublicUserChatsLoaded) {
+                return ChatsList(
+                    chats: state.userChats,
+                    scrollDirection: widget.verticalScrollDirection);
+              } else if (state is PublicUserChatCreated) {
+                return ChatsList(
+                    chats: state.userChats,
                     scrollDirection: widget.verticalScrollDirection);
               }
               return Container();

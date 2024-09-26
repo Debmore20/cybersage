@@ -1,6 +1,6 @@
 import 'package:cybersage/data/BLoC/bloc_exports.dart';
 import 'package:cybersage/presentation/Components/components_exports.dart';
-import 'package:cybersage/Utils/colors.dart';
+import 'package:cybersage/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,9 +23,10 @@ class _ChatsViewState extends State<ChatsView> {
   void _afterBuild() {
     final state = context.read<AuthBloc>().state;
     if (state is AuthAuthenticated) {
-      context
-          .read<UserchatsBloc>()
-          .add(FetchUserchats(state.user.id, state.token, 'private'));
+      context.read<UserchatsBloc>().add(FetchPublicUserChats(
+            state.user.id,
+            state.token,
+          ));
     }
     setState(() {});
   }
@@ -44,20 +45,19 @@ class _ChatsViewState extends State<ChatsView> {
               : LightModeColors.button, // Beige color
           elevation: 0,
         ),
-        body: Column(
+        body: const Column(
           children: [
             // Search Bar
-            const ChatsSearchBar(),
+            ChatsSearchBar(),
             // Chat List
             Flexible(
               flex: 5,
               child: ChatsListContainer(
-                isDarkMode: isDarkMode,
-                verticalScrollDirection: 'vertical',
+                isPrivateChat: true,
               ),
             ),
 
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
           ],
         ),
         floatingActionButton: const ChatsActionBtns());

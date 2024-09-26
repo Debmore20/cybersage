@@ -2,7 +2,7 @@ import 'package:cybersage/presentation/Components/Profile/Pages/login_page.dart'
 import 'package:cybersage/presentation/Components/Profile/Pages/signup_page.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../Utils/colors.dart';
+import '../../../../utils/colors.dart';
 
 class UnauthenticatedUser extends StatelessWidget {
   const UnauthenticatedUser({super.key});

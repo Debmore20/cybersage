@@ -25,18 +25,18 @@ class CreatePrivateUserChat extends UserChatsEvent {
   final int userId;
   final String chatName;
   final String token;
-  final String chatType;
+  final String chatType = 'private';
 
-  CreatePrivateUserChat(this.chatName, this.userId, this.token, this.chatType);
+  CreatePrivateUserChat(this.chatName, this.userId, this.token);
 }
 
 class CreatePublicUserChat extends UserChatsEvent {
   final int userId;
   final String chatName;
   final String token;
-  final String chatType;
+  final String chatType = 'public';
 
-  CreatePublicUserChat(this.chatName, this.userId, this.token, this.chatType);
+  CreatePublicUserChat(this.chatName, this.userId, this.token);
 }
 
 class UpdateUserChat extends UserChatsEvent {

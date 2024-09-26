@@ -66,3 +66,24 @@ Future<List<ChatModel>> fetchPublicChats(
   }
   return [];
 }
+
+Future<String> deleteChat(
+    {required int userId, required int chatId, required String token}) async {
+  final response = await http.delete(
+    Uri.parse('${getDeviceInfo()['url']}/api/chats/$chatId'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+      'Authorization': 'Bearer $token',
+    },
+  );
+  final finalResponse = jsonDecode(response.body);
+  if (response.statusCode == 200) {
+    return finalResponse.body['message'];
+  } else if (response.statusCode == 404) {
+    return finalResponse.body['error'];
+  } else if (response.statusCode == 500) {
+    return finalResponse.body['error'];
+  } else {
+    return 'error';
+  }
+}

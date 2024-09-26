@@ -1,5 +1,5 @@
 import 'package:cybersage/data/BLoC/bloc_exports.dart';
-import 'package:cybersage/Utils/colors.dart';
+import 'package:cybersage/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

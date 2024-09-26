@@ -28,14 +28,13 @@ class _RoomsViewState extends State<RoomsView> {
     if (state is AuthAuthenticated) {
       context
           .read<UserchatsBloc>()
-          .add(FetchUserchats(state.user.id, state.token, 'room'));
+          .add(FetchPublicUserChats(state.user.id, state.token));
       setState(() {});
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Column(
@@ -58,10 +57,9 @@ class _RoomsViewState extends State<RoomsView> {
           const SizedBox(
             height: 12,
           ),
-          Flexible(
+          const Flexible(
             flex: 5,
             child: ChatsListContainer(
-              isDarkMode: isDarkMode,
               verticalScrollDirection: 'vertical',
             ),
           ),

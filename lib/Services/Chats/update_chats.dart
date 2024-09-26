@@ -4,7 +4,7 @@ import 'package:cybersage/data/BLoC/bloc_exports.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future<void> onUpdateChats(
-    UpdateUserchats event, Emitter<UserchatsState> emit) async {
+    UpdateUserChat event, Emitter<UserChatsState> emit) async {
   switch (event.updateAction.actionName) {
     case 'updateChatName':
       await event.updateAction.updateChatName(

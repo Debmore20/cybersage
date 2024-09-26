@@ -1,4 +1,4 @@
-import 'package:cybersage/Utils/colors.dart';
+import 'package:cybersage/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class RoomChatbox extends StatefulWidget {
