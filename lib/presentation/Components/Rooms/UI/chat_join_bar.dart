@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-Widget roomJoinBar(BuildContext context) {
+Widget joinChatBar(BuildContext context) {
   return TextField(
     decoration: InputDecoration(
       hintText: 'Enter Room ID to Join',

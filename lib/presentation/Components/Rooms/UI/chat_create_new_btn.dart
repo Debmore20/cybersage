@@ -2,7 +2,7 @@ import 'package:cybersage/presentation/Components/Rooms/UI/create_room_dialog.da
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-Widget roomCreateNewBtn(BuildContext context) {
+Widget chatCreateNewBtn(BuildContext context) {
   return ElevatedButton.icon(
     onPressed: () {
       showDialog(

@@ -43,15 +43,15 @@ class _RoomsViewState extends State<RoomsView> {
           const SizedBox(
             height: 30,
           ),
-          // Create New Room Button
-          roomCreateNewBtn(context).animate().fadeIn(delay: 100.ms),
+          // Create New Public Chat Button
+          chatCreateNewBtn(context).animate().fadeIn(delay: 100.ms),
           const SizedBox(height: 20),
-          // Join Room by ID
-          roomJoinBar(context).animate().fadeIn(delay: 200.ms),
+          // Join Chat by ID
+          joinChatBar(context).animate().fadeIn(delay: 200.ms),
           const SizedBox(height: 20),
-          // Explore Popular Rooms
+          // Explore Popular Chats
           const Text(
-            'Your Rooms',
+            'Public Chats',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ).animate().fadeIn(delay: 200.ms),
           const SizedBox(

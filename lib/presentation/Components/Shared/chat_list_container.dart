@@ -41,6 +41,10 @@ class _ChatsListContainerState extends State<ChatsListContainer> {
                 builder: (context, state) {
               if (state is UserChatsLoading) {
                 return const Center(child: CircularProgressIndicator());
+              } else if (state is AllUserChatsLoaded) {
+                return ChatsList(
+                    chats: state.userChats,
+                    scrollDirection: widget.verticalScrollDirection);
               } else if (state is PrivateUserChatsLoaded) {
                 return ChatsList(
                     chats: state.userChats,

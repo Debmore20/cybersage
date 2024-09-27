@@ -38,7 +38,6 @@ class _HomeViewState extends State<HomeView> {
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
-          // rowColumn: !ResponsiveWrapper.of(context).isSmallerThan(TABLET),
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Search Bar
@@ -53,7 +52,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                     TextField(
                       decoration: InputDecoration(
-                        hintText: 'Search Study Rooms...',
+                        hintText: 'Search Study Sage...',
                         prefixIcon: const Icon(Icons.search),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -83,7 +82,7 @@ class _HomeViewState extends State<HomeView> {
                             : LightModeColors.text),
                   ).animate().fadeIn(delay: 300.ms),
                 ),
-                roomCreateNewBtn(context).animate().fadeIn(delay: 100.ms),
+                chatCreateNewBtn(context).animate().fadeIn(delay: 100.ms),
               ],
             ),
 
@@ -93,8 +92,6 @@ class _HomeViewState extends State<HomeView> {
                 isPrivateChat: false,
               ),
             ),
-
-            const SizedBox(height: 24),
 
             const SizedBox(height: 24),
             // Quick Access to Study Tools
